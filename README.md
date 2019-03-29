@@ -149,6 +149,8 @@ List of 300 VueJS Interview Questions
 |140| [Can I use strict mode in production environment?](#can-i-use-strict-mode-in-production-environment)|
 |141| [What is vuex plugin?](#what-is-vuex-plugin)|
 |142| [How do you mutate state in plugins?](#how-do-you-mutate-state-in-plugins)|
+|143| [What is vuex store?](#what-is-vuex-store)|
+|144| [What are the differences of vuex store and plain global object?](#what-are-the-differences-of-vuex-store-and-plain-global-object)|
 
 1.  ### What is VueJS?
     **Vue.js** is an open-source, progressive Javascript framework for building user interfaces that aim to be incrementally adoptable. The core library of VueJS is focused on the `view layer` only, and is easy to pick up and integrate with other libraries or existing projects.
@@ -2655,3 +2657,36 @@ List of 300 VueJS Interview Questions
        plugins: [plugin]
      })
      ```
+143. ### What is vuex store?
+     A Vuex "store" is basically a container that holds your application state. The store creation is pretty straightforward.
+     Below are the list of instructions to use vuex in an increment application,
+     1. Configure vuex in vuejs ecosystem
+     ```javascript
+     import Vuex from "vuex";
+     Vue.use(Vuex)
+     ```
+     2. Provide an initial state object and some mutations
+     ```javascript
+     // Make sure to call Vue.use(Vuex) first if using a module system
+
+     const store = new Vuex.Store({
+       state: {
+         count: 0
+       },
+       mutations: {
+         increment (state) {
+           state.count++
+         }
+       }
+     })
+     ```
+     3. Trigger state change with commit and access state variables,
+     ```javascript
+     store.commit('increment')
+
+     console.log(store.state.count) // -> 1
+     ```
+144. ### What are the differences of vuex store and plain global object?
+     Below are the two major differences between vuex store and plain global object
+     1. **Vuex stores are reactive:** If the store's state changes then vue components will reactively and efficiently get updated
+     2. **Cannot directly mutate the store's state:** The store's state is changed by explicitly committing mutations to ensure that every state change leaves a track-able record for tooling purpose
